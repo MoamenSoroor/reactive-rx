@@ -11,6 +11,12 @@ namespace FirstRX
         static void Main(string[] args)
         {
 
+            Utils.RenameNamespaces();
+
+
+
+            // Key Types
+            // ----------------
             //ObservableAndObserverImplemetationTest.Test();
             //SubjectTest.Test();
             //ReplaySubjectWithTimeoutTest.Test();
@@ -19,11 +25,13 @@ namespace FirstRX
 
 
             // lifetime management
+            // ----------------
             //NoOnErrorActionRegisteredExceptionThrown.Test();
             //TheRightWayTohandleException.Test();
             //IDisposableTypeAndDisposeMethod.Test();
 
             // ceratingSequences
+            // ----------------
             //ObservableCreateMethodTest.Test();
             //EmptyReturnNeverThrowWithObservableCreateMethod.Test();
             //ThePowerfullOfObservableCreateFactoryMethod.Test();
@@ -39,7 +47,7 @@ namespace FirstRX
             //ObservableFromEnumerable.Test();
 
             // Reducing a sequence
-
+            // ---------------------
             //FilteringWithWhereOperator.Test();
             //FilteringWithDistinctOperator.Test();
             //FilteringWithDistinctUntilChangedOperator.Test();
@@ -48,13 +56,30 @@ namespace FirstRX
             //SkipUntilTakeUntilOperators.Test();
 
             // Inspection Operators
+            // --------------------
             //AnyOperator.Test();
             //AllOperator.Test();
             //ContainsOperator.Test();
             //DefaultIfEmptyOperator.Test();
             //ElementAtOperator.Test();
-            SequenceEqualsOperator.Test();
-            
+            //SequenceEqualsOperator.Test();
+
+            // Aggregates Operatos
+            // ----------------
+            //CountMinMaxSumAverage.Test();
+            //BlockingOperators.Test();
+            //AggregateOperator.Test();
+            //ScanOperator.Test();
+            //MaxByMinByOperators.Test();
+            //GroupByOperator.Test(); // not working fix it
+
+            // transformations
+            // ----------------
+            //SelectOperator.Test();
+            //CastAndOfTypes.Test();
+            //TimestampOperator.Test();
+            //TimeIntervalOperator.Test();
+
             Console.ReadLine();
         }
 
