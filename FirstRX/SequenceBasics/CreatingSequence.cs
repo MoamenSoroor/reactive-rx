@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace FirstRX
+namespace FirstRX.SequenceBasics
 {
     #region Simple factory methods
 

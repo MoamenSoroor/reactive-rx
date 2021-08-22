@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using FirstRX.SequenceBasics;
+using FirstRX.TamingTheSequence;
 
 namespace FirstRX
 {
@@ -10,10 +12,6 @@ namespace FirstRX
     {
         static void Main(string[] args)
         {
-
-            Utils.RenameNamespaces();
-
-
 
             // Key Types
             // ----------------
@@ -79,6 +77,42 @@ namespace FirstRX
             //CastAndOfTypes.Test();
             //TimestampOperator.Test();
             //TimeIntervalOperator.Test();
+
+
+            // SideEffects
+            // -----------------
+            //ProblemOfMutation.Test();
+            //IssuesWithSideEffects.Test();
+            //DoOperator.Test();
+
+
+            //ForEachAsyncOperator.Test();
+            //ToEnumerableOperator.Test();
+
+
+            // combining the sequences
+            // -----------------------------
+            //ConcatOperator.Test();
+            //RepeatOperator.Test();
+            //StartWithOperator.Test();
+            //AmpOperator.Test();
+            //MergeOperator.Test();
+            //SwitchOperator.Test();
+            //CombineLatestOperator.Test();
+            //ZipOperator.Test();
+
+
+            // time shifted Operator
+            // -----------------------------
+            //DelayOperator.Test();
+
+
+            // Hot and Cold Observables
+            // ------------------------
+            //PublishAndConnect.Test();
+            //RefCountOperator.Test();
+            ReplayExtensionMethod.Test();
+
 
             Console.ReadLine();
         }

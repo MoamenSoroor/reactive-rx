@@ -8,7 +8,7 @@ using System.Reactive.Subjects;
 using System.Threading;
 
 
-namespace FirstRX
+namespace FirstRX.SequenceBasics
 {
 
 

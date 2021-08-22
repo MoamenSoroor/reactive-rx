@@ -33,7 +33,9 @@ public static void GenerateSequence{v}()
             {
                 var content = File.ReadAllText(file.FullName)
                     .Replace("namespace FirstRX", "namespace FirstRX.SequenceBasics");
-                File.WriteAllText($"{Path.Combine(file.DirectoryName, "test", file.Name)}", content);
+                var newdir = Path.Combine(file.DirectoryName, "test");
+                Directory.CreateDirectory(newdir);
+                File.WriteAllText($"{Path.Combine(newdir, file.Name)}", content);
 
             });
 
