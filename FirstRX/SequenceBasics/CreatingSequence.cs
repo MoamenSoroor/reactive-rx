@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -271,6 +272,9 @@ namespace FirstRX.SequenceBasics
                         // 
 
                     });
+
+
+                    // return timer; // you can return timer as it is Disposable 
                 }
                 );
             return observable;
@@ -386,6 +390,27 @@ namespace FirstRX.SequenceBasics
                     return Disposable.Empty;
                 });
             return observable;
+        }
+
+        public static IObservable<T> Unfold2<T>(T seed, Func<T, T> accumulator)
+        {
+            IObservable<T> observable = Observable.Create<T>(
+                (IObserver<T> observer) =>
+                {
+                    bool end = false;
+                    var current = seed;
+                    while (!end)
+                    {
+                        observer.OnNext(current); 
+                        // not that the observer can't lazy request a next value
+                        // we push values to it, and he has no control except to dispose.
+                        current = accumulator(current);
+
+                    }
+                    return Disposable.Create(() => end = true);
+                });
+            return observable;
+
         }
 
     }
@@ -714,48 +739,156 @@ namespace FirstRX.SequenceBasics
     #endregion
 
 
-    #region From Events
+    #region From FromEventPattern
     // 
-    // From Events
+    // From FromEventPattern
     // --------------------------------------------------------------------------------
     // Rx provides methods to take an event and turn it into an observable sequence.
     // There are several different varieties you can use.
 
 
 
-    public class ObservableFromEvents
+    public class ObservableFromEventPattern
     {
 
-        private event EventHandler MyEventHandler;
-
-
-
+        private static event EventHandler<MyEventArgs> MyEvent;
         public static void Test()
         {
-            ////Activated delegate is EventHandler
-            //var appActivated = Observable.FromEventPattern(
-            //h => Application.Current.Activated += h,
-            //h => Application.Current.Activated -= h);
+            // convert event to observable
+            var source = Observable.FromEventPattern<MyEventArgs>(handler => MyEvent += handler, handler => MyEvent += handler);
 
-            ////PropertyChanged is PropertyChangedEventHandler
-            //var propChanged = Observable.FromEventPattern
-            //<PropertyChangedEventHandler, PropertyChangedEventArgs>(
-            //handler => handler.Invoke,
-            //h => this.PropertyChanged += h,
-            //h => this.PropertyChanged -= h);
+            source.Select(v => v.EventArgs.Value).Subscribe(Console.WriteLine);
 
 
-            ////FirstChanceException is EventHandler<FirstChanceExceptionEventArgs>
-            //var firstChanceException = Observable.FromEventPattern<FirstChanceExceptionEventArgs>(
-            //h => AppDomain.CurrentDomain.FirstChanceException += h,
-            //h => AppDomain.CurrentDomain.FirstChanceException -= h);
+            FireEvent();
         }
+
+        static void FireEvent()
+        {
+            MyEvent?.Invoke(null, new MyEventArgs(10));
+            Thread.Sleep(300);
+            MyEvent?.Invoke(null, new MyEventArgs(20));
+            Thread.Sleep(300);
+            MyEvent?.Invoke(null, new MyEventArgs(30));
+        }
+
+
+
+        class MyEventArgs : EventArgs
+        {
+            private readonly long _value;
+            public MyEventArgs(long value)
+            {
+                _value = value;
+            }
+            public long Value
+            {
+                get { return _value; }
+            }
+        }
+
+
+        
     }
 
 
 
 
     #endregion
+
+
+    #region From FromEvent
+    // 
+    // From FromEvent
+    // --------------------------------------------------------------------------------
+    // Rx provides methods to take an event and turn it into an observable sequence.
+    // There are several different varieties you can use.
+
+
+
+    public class ObservableFromEvent
+    {
+
+
+        public static void Test()
+        {
+            var foo = new Foo();
+
+            //var observableBar = Observable.FromEvent<BarHandler, string>(
+            //onNextHandler => (int x, string y) => onNextHandler("X:" + x + " Y:" + y),
+            //h => foo.BarEvent += h,
+            //h => foo.BarEvent -= h);
+
+            var source = Observable.FromEvent<BarHandler, string>(onNext =>
+            {
+                BarHandler h = (string x, int y) => onNext($"{x}-{y}");
+                return h;
+            }, handler => foo.BarEvent += handler, handler => foo.BarEvent -= handler);
+
+            source.Subscribe(Console.WriteLine);
+
+            // fire event
+            foo.RaiseBar("I am ",1);
+            foo.RaiseBar("I am ",2);
+            foo.RaiseBar("I am ",3);
+
+
+
+        }
+
+
+        delegate void BarHandler(string x, int y);
+
+        class Foo
+        {
+            private BarHandler delegateChain;
+
+            public event BarHandler BarEvent
+            {
+                add
+                {
+                    delegateChain += value;
+                    Console.WriteLine("Event handler added");
+                }
+                remove
+                {
+                    delegateChain -= value;
+                    Console.WriteLine("Event handler removed");
+                }
+            }
+
+            public void RaiseBar(string x, int y)
+            {
+                var temp = delegateChain;
+                if (temp != null)
+                {
+                    delegateChain(x, y);
+                }
+            }
+        }
+
+
+
+
+
+
+    }
+
+
+
+
+    #endregion
+
+
+
+
+
+
+
+
+
+
+
 
     #region From Task usnig ToObservable() Extension method
     // 
@@ -868,6 +1001,30 @@ namespace FirstRX.SequenceBasics
 
     #endregion
 
+
+    #region From AMP Pattern
+    // 
+    // 
+    // --------------------------------------------------------------------------------
+    // 
+    // 
+    public static class ObservableFromAMP
+    {
+        public static void Test()
+        {
+
+            // reading file
+            
+        }
+
+
+        
+
+
+
+    }
+
+    #endregion
 
 
 

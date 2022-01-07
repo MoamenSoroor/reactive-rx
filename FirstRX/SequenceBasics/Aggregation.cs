@@ -104,24 +104,24 @@ namespace FirstRX.SequenceBasics
         {
             // I comments the code to avoid code warning.
 
-            //var seq = Observable.Generate(
-            //    1, 
-            //    i => i < 5,
-            //    i => i + 1,
-            //    i => i, 
-            //    t => TimeSpan.FromMilliseconds(200)
-            //    );
+            var seq = Observable.Generate(
+                1,
+                i => i < 5,
+                i => i + 1,
+                i => i,
+                t => TimeSpan.FromMilliseconds(200)
+                );
 
-            //// blocking functions
-            //Console.WriteLine($"First: {seq.First()}");
-            //Console.WriteLine($"FirstOrDefault: {seq.FirstOrDefault()}");
-            //Console.WriteLine($"Last: {seq.Last()}");
-            //Console.WriteLine($"LastOrDefault: {seq.LastOrDefault()}");
+            // blocking functions
+            Console.WriteLine($"First: {seq.First()}");
+            Console.WriteLine($"FirstOrDefault: {seq.FirstOrDefault()}");
+            Console.WriteLine($"Last: {seq.Last()}");
+            Console.WriteLine($"LastOrDefault: {seq.LastOrDefault()}");
 
-            //var seq2 = Observable.Timer(TimeSpan.FromMilliseconds(200));
+            var seq2 = Observable.Timer(TimeSpan.FromMilliseconds(200));
 
-            //Console.WriteLine($"Single: {seq2.Single()}");
-            //Console.WriteLine($"SingleOrDefault: {seq2.SingleOrDefault()}");
+            Console.WriteLine($"Single: {seq2.Single()}");
+            Console.WriteLine($"SingleOrDefault: {seq2.SingleOrDefault()}");
 
         }
     }

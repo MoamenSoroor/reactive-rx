@@ -11,7 +11,14 @@ namespace FirstRX.TamingTheSequence
     // 
     // Issues With Side Effects
     // --------------------------------------------------------------------------------
-    // 
+    // A function is considered to have a side effect if, in addition to any return value,
+    // it has some other observable effect. Generally the 'observable effect' is a
+    // modification of state.
+    // This observable effect could be
+    // - modification of a variable with a wider scope than the function(i.e.global, static
+    //   or perhaps an argument)
+    // - I/O such as a read/write from a file or network
+    // - updating a display
 
     // 
     public class IssuesWithSideEffects

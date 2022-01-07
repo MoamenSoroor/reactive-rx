@@ -17,6 +17,7 @@ namespace FirstRX
             // ----------------
             //ObservableAndObserverImplemetationTest.Test();
             //SubjectTest.Test();
+            //ReplaySubjectsTest.Test();
             //ReplaySubjectWithTimeoutTest.Test();
             //BehaviouralSubjectTest.Test();
             //AsyncSubjectTest.Test();
@@ -39,6 +40,8 @@ namespace FirstRX
             //ObservableIntervalMethod.Test();
             //ObservableTimerTest.Test();
             //TimingOperatorsUsingObservableGenerateMethod.Test();
+            //ObservableFromEventPattern.Test();
+            //ObservableFromEvent.Test();
 
             //ObservableFromDelegates.Test();
             //ObservableFromTask.Test();
@@ -77,6 +80,7 @@ namespace FirstRX
             //CastAndOfTypes.Test();
             //TimestampOperator.Test();
             //TimeIntervalOperator.Test();
+            //MaterializeAndDematerialize.Test();
 
 
             // SideEffects
@@ -88,6 +92,11 @@ namespace FirstRX
 
             //ForEachAsyncOperator.Test();
             //ToEnumerableOperator.Test();
+            //ToEventPatternOperator.Test();
+
+            // Handling Exceptions:
+            // -----------------------------
+            //CatchOperator.Test();
 
 
             // combining the sequences
@@ -104,16 +113,21 @@ namespace FirstRX
 
             // time shifted Operator
             // -----------------------------
+            //BufferOperator.Test();
+            //OverlappingBuffersByCount.Test();
+            //OverlappingBuffersByTime.Test();
             //DelayOperator.Test();
-
+            //SampleOperator.Test();
+            //ThrottleOperator.Test();
+            TimeoutOperator.Test();
 
             // Hot and Cold Observables
             // ------------------------
             //PublishAndConnect.Test();
             //RefCountOperator.Test();
-            ReplayExtensionMethod.Test();
+            //ReplayExtensionMethod.Test();
 
-
+            Console.WriteLine("<<< Press Any Key to Continue. >>>");
             Console.ReadLine();
         }
 

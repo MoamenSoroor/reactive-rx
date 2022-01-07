@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,67 @@ namespace FirstRX
         public const string Output2 = "output2.txt";
         public const string Output3 = "output3.txt";
         public const string Output4 = "output4.txt";
+    }
+
+    public class SecondConsole: IDisposable
+    {
+
+        public static SecondConsole Default { get; } = new SecondConsole();
+
+        ~SecondConsole()
+        {
+            this.Dispose();
+        }
+        private SecondConsole()
+        {
+            runCmd = Start();
+        }
+
+        private Process runCmd;
+        public static Process Start()
+        {
+            try
+            {
+                Process runCmd = new Process();
+                runCmd.StartInfo.FileName = @"cmd.exe";
+                runCmd.StartInfo.UseShellExecute = false;
+                runCmd.StartInfo.RedirectStandardOutput = true;
+                runCmd.StartInfo.RedirectStandardInput = true;
+                
+
+                runCmd.StartInfo.CreateNoWindow = true;
+                runCmd.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                runCmd.Start();
+                //runCmd.WaitForExit();
+                runCmd.StandardInput.AutoFlush = true;
+                //runCmd.StandardInput.WriteLine("hello world...");
+                //runCmd.WaitForExit();
+                return runCmd;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+    
+    
+        public void WriteLine(string str)
+        {
+            runCmd.StandardInput.WriteLine(str);
+            //runCmd.StandardInput.Flush();
+        }
+
+        public void Write(string str)
+        {
+            runCmd.StandardInput.Write(str);
+            //runCmd.StandardInput.Flush();
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)runCmd).Dispose();
+        }
     }
 
     public class OutputFileObserver<T> : IObserver<T>

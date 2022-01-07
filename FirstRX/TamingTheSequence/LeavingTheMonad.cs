@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FirstRX.TamingTheSequence
@@ -22,9 +23,11 @@ namespace FirstRX.TamingTheSequence
             var source = Observable.Interval(TimeSpan.FromSeconds(1))
                             .Take(5);
 
-            // Bocking Function
+            // Bocking Function [Obsolete("This blocking operation is no longer supported. Instead, use the async version in
+            // combination with C# and Visual Basic async/await support. In case you need a blocking operation, use Wait or
+            // convert the resulting observable sequence to a Task object and block.")]
             source.ForEach(i => Console.WriteLine("received {0} @ {1}", i, DateTime.Now));
-            Console.WriteLine("completed @ {0}", DateTime.Now);
+
         }
     }
 
@@ -183,19 +186,31 @@ namespace FirstRX.TamingTheSequence
     // 
     public class ToEventPatternOperator
     {
+        private static event EventHandler<MyEventArgs> MyEvent; 
         public static void Test()
         {
-            var source = Observable.Interval(TimeSpan.FromSeconds(1))
-                .Select(i => new EventPattern<MyEventArgs>(i, new MyEventArgs(i)));
+            // convert event to observable
+            var source = Observable.FromEventPattern<MyEventArgs>(handler => MyEvent += handler, handler => MyEvent += handler);
+            // convert observable to event
             var result = source.ToEventPattern();
             result.OnNext += (sender, eventArgs) => Console.WriteLine(eventArgs.Value);
 
-            
+
+            FireEvent();
+        }
+
+        static void FireEvent()
+        {
+            MyEvent?.Invoke(null, new MyEventArgs(10));
+            Thread.Sleep(100);
+            MyEvent?.Invoke(null, new MyEventArgs(20));
+            Thread.Sleep(100);
+            MyEvent?.Invoke(null, new MyEventArgs(30));
         }
 
 
 
-        public class MyEventArgs : EventArgs
+        class MyEventArgs : EventArgs
         {
             private readonly long _value;
             public MyEventArgs(long value)

@@ -241,13 +241,9 @@ namespace FirstRX.SequenceBasics
         public static void TestDefaultIfEmptyWithNotEmptySequence()
         {
             var subject = new Subject<int>();
-            subject.Subscribe(
-            Console.WriteLine,
-            () => Console.WriteLine("Subject completed"));
+            subject.Subscribe( Console.WriteLine, () => Console.WriteLine("Subject completed"));
             var defaultIfEmpty = subject.DefaultIfEmpty();
-            defaultIfEmpty.Subscribe(
-            b => Console.WriteLine("defaultIfEmpty value: {0}", b),
-            () => Console.WriteLine("defaultIfEmpty completed"));
+            defaultIfEmpty.Subscribe( b => Console.WriteLine("defaultIfEmpty value: {0}", b), () => Console.WriteLine("defaultIfEmpty completed"));
             subject.OnNext(1);
             subject.OnNext(2);
             subject.OnNext(3);
@@ -259,17 +255,11 @@ namespace FirstRX.SequenceBasics
         public static void TestDefaultIfEmptyWithEmptySequence()
         {
             var subject = new Subject<int>();
-            subject.Subscribe(
-            Console.WriteLine,
-            () => Console.WriteLine("Subject completed"));
+            subject.Subscribe( Console.WriteLine, () => Console.WriteLine("Subject completed"));
             var defaultIfEmpty = subject.DefaultIfEmpty();
-            defaultIfEmpty.Subscribe(
-            b => Console.WriteLine("defaultIfEmpty value: {0}", b),
-            () => Console.WriteLine("defaultIfEmpty completed"));
+            defaultIfEmpty.Subscribe( b => Console.WriteLine("defaultIfEmpty value: {0}", b), () => Console.WriteLine("defaultIfEmpty completed"));
             var default42IfEmpty = subject.DefaultIfEmpty(42);
-            default42IfEmpty.Subscribe(
-            b => Console.WriteLine("default42IfEmpty value: {0}", b),
-            () => Console.WriteLine("default42IfEmpty completed"));
+            default42IfEmpty.Subscribe( b => Console.WriteLine("default42IfEmpty value: {0}", b), () => Console.WriteLine("default42IfEmpty completed"));
             subject.OnCompleted();
         }
 
@@ -354,12 +344,6 @@ namespace FirstRX.SequenceBasics
                 .Subscribe(val => Console.WriteLine($"seq1==seq4: {val}"), () => Console.WriteLine("Completed"));
 
 
-
-        }
-
-
-        public static void SequenceEqualsOnlyWorkOnCompletedSequences()
-        {
 
         }
 

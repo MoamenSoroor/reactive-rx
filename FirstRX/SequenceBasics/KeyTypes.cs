@@ -186,7 +186,6 @@ namespace FirstRX.SequenceBasics
 
             //consoleDispose.Dispose();
             //outputFileDispose.Dispose();
-
         }
 
 

@@ -216,8 +216,6 @@ namespace FirstRX.SequenceBasics
     #endregion
 
 
-
-    // NOT Implemented Yet
     #region Materialize and Dematerialize
     // 
     // Materialize and Dematerialize
@@ -231,7 +229,14 @@ namespace FirstRX.SequenceBasics
     {
         public static void Test()
         {
+            var source = Observable.Interval(TimeSpan.FromSeconds(1))
+                .Take(10).Materialize();
 
+            source.Subscribe(v => Console.WriteLine($"{v.Kind}: {(v.HasValue? v.Value: v.Exception)}"));
+
+            source.Dematerialize()
+                .Where(i => i % 2 == 0)
+                .Subscribe(v => Console.WriteLine($"Dematerialize: {v}"));
         }
     }
 
@@ -276,6 +281,32 @@ namespace FirstRX.SequenceBasics
     }
 
     #endregion
+
+    #region ABC's of functional programming
+    // 
+    // ABC's of functional programming
+    // --------------------------------------------------------------------------------
+    // On deeper analysis of the operators we find that most of the operators are actually specialization of the higher order functional concepts.
+    // We named them the ABC's of functional programming:
+
+    // Anamorphism, aka:
+    //      Ana
+    //      Unfold
+    //      Generate
+    // Bind, aka:
+    //      Map
+    //      SelectMany
+    //      Projection
+    //      Transform
+    // Catamorphism, aka:
+    //      Cata
+    //      Fold
+    //      Reduce
+    //      Accumulate
+    //      Inject
+
+    #endregion
+
 
 
 

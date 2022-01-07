@@ -25,7 +25,7 @@ namespace FirstRX.TamingTheSequence
     // 
     // Concat Operator
     // --------------------------------------------------------------------------------
-    // 
+    // when the first source is completed, the second will be started.
 
     // 
     public class ConcatOperator
@@ -66,16 +66,31 @@ namespace FirstRX.TamingTheSequence
     // 
     // Repeat Operator
     // --------------------------------------------------------------------------------
-    // 
+    // Another simple extension method is Repeat. It allows you to simply repeat a sequence, either a specified or an infinite number of times.
 
     // 
     public class RepeatOperator
     {
         public static void Test()
         {
+            Repeat2Times();
+            //RepeatInfinitly();
+        }
+
+        public static void Repeat2Times()
+        {
             var source = Observable.Interval(TimeSpan.FromMilliseconds(200)).Take(5);
 
             var seq = source.Repeat(2);
+
+            seq.Dump("Repeat ");
+        }
+
+        public static void RepeatInfinitly()
+        {
+            var source = Observable.Interval(TimeSpan.FromMilliseconds(200)).Take(5);
+
+            var seq = source.Repeat();
 
             seq.Dump("Repeat ");
         }
@@ -106,7 +121,7 @@ namespace FirstRX.TamingTheSequence
             //var seq = source.StartWith(-5,-4,-3,-2,-1); // ok
             var seq = source.StartWith(Enumerable.Range(-5, 5).Select(v => (long)v)); // ok
 
-            seq.Dump("Repeat ");
+            seq.Dump("StartWith ");
         }
     }
 
@@ -162,7 +177,8 @@ namespace FirstRX.TamingTheSequence
     // 
     // Merge Operator
     // --------------------------------------------------------------------------------
-    // 
+    // The Merge extension method does a primitive combination of multiple concurrent sequences.
+    // As values from any sequence are produced, those values become part of the result sequence.
 
     // 
     public class MergeOperator
@@ -210,29 +226,33 @@ namespace FirstRX.TamingTheSequence
     {
         public static void Test()
         {
-            ////[0,1,2,3,4]
-            //var source1 = Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(100)).Take(5);
+            //[0,1,2,3,4]
+            var source1 = Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(100)).Take(5);
 
-            ////[5,6,7,8,9]
-            //var source2 = Observable.Timer(TimeSpan.FromMilliseconds(150), TimeSpan.FromMilliseconds(100)).Take(5).Select(v => v + 5);
-
-
-            ////[10,11,12,13,14]
-            //var source3 = Observable.Timer(TimeSpan.FromMilliseconds(350), TimeSpan.FromMilliseconds(100)).Take(5).Select(v => v + 10);
+            //[5,6,7,8,9]
+            var source2 = Observable.Timer(TimeSpan.FromMilliseconds(150), TimeSpan.FromMilliseconds(100)).Take(5).Select(v => v + 5);
 
 
-            //var allSources = Observable.Create<IObservable<long>>(o =>
-            //{
-            //    o.OnNext(source1);
-            //    o.OnNext(source2);
-            //    o.OnNext(source3);
-            //    return Disposable.Empty;
-            //});
+            //[10,11,12,13,14]
+            var source3 = Observable.Timer(TimeSpan.FromMilliseconds(350), TimeSpan.FromMilliseconds(100)).Take(5).Select(v => v + 10);
 
-            //var result = Observable.Switch(allSources);
-            //result.Dump("Switch ");
+
+            var allSources = Observable.Create<IObservable<long>>(o =>
+            {
+                o.OnNext(source1);
+                o.OnNext(source2);
+                o.OnNext(source3);
+                return Disposable.Empty;
+            });
+
+            var result = Observable.Switch(allSources);
+            result.Dump("Switch ");
 
         }
+
+
+        
+
     }
 
     #endregion
@@ -282,7 +302,14 @@ namespace FirstRX.TamingTheSequence
     // 
     // Pairing sequences : Zip
     // --------------------------------------------------------------------------------
-
+    // The Zip extension method is another interesting merge feature.Just like a zipper
+    // on clothing or a bag, the Zip method brings together two sequences of values as
+    // pairs; two by two.Things to note about the Zip function is that the result
+    // sequence will complete when the first of the sequences complete, it will error
+    // if either of the sequences error and it will only publish once it has a pair of
+    // fresh values from each source sequence.So if one of the source sequences publishes
+    // values faster than the other sequence, the rate of publishing will be dictated
+    // by the slower of the two sequences.
 
     // 
     public class ZipOperator

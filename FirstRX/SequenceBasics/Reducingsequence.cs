@@ -51,7 +51,7 @@ namespace FirstRX.SequenceBasics
         public static void Test()
         {
             var oddNumbers = Observable.Range(0, 20)
-                .Where(value => value % 2 != 0); // fileter only odd numbers
+                .Where(value => value % 2 != 0); // filter only odd numbers
 
             oddNumbers.Subscribe(Console.WriteLine, () => Console.WriteLine("Completed."));
 
@@ -65,7 +65,8 @@ namespace FirstRX.SequenceBasics
     // 
     // Distinct Operator
     // --------------------------------------------------------------------------------
-    // 
+    // it push only values that is distinct (not passed before), and you should use it carefully as it keep a lookup 
+    // of all the pushed values throw it.
 
     // 
     public class FilteringWithDistinctOperator
@@ -221,7 +222,7 @@ namespace FirstRX.SequenceBasics
     // 
     // Distinct Until Changed Operator
     // --------------------------------------------------------------------------------
-    // 
+    // if the a source pushes values and you are interested only when the value change.
 
     // 
     public class FilteringWithDistinctUntilChangedOperator
@@ -247,9 +248,11 @@ namespace FirstRX.SequenceBasics
                 o.OnNext(1);
                 o.OnNext(2);
                 o.OnNext(3);
+                o.OnNext(3);
                 o.OnNext(1);
                 o.OnNext(1);
                 o.OnNext(2);
+                o.OnNext(3);
                 o.OnNext(3);
                 o.OnCompleted();
                 return Disposable.Empty;
