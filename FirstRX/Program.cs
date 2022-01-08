@@ -119,13 +119,14 @@ namespace FirstRX
             //DelayOperator.Test();
             //SampleOperator.Test();
             //ThrottleOperator.Test();
-            TimeoutOperator.Test();
+            //TimeoutOperator.Test();
 
             // Hot and Cold Observables
             // ------------------------
             //PublishAndConnect.Test();
             //RefCountOperator.Test();
-            //ReplayExtensionMethod.Test();
+            //PublishLatestOperator.Test();
+            ReplayExtensionMethod.Test();
 
             Console.WriteLine("<<< Press Any Key to Continue. >>>");
             Console.ReadLine();

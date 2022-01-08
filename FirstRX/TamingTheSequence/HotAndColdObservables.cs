@@ -42,7 +42,6 @@ namespace FirstRX.TamingTheSequence
 
     // 
     // Publish and Connect
-
     // --------------------------------------------------------------------------------
     // If we want to be able to share the actual data values and not just the observable
     // instance, we can use the Publish() extension method. This will return an
@@ -64,8 +63,7 @@ namespace FirstRX.TamingTheSequence
             var source = Observable.Interval(TimeSpan.FromMilliseconds(1500))
                 .Do(value=> Console.WriteLine($"Publishing: {value}"))
                 .Publish();
-
-            var connection = source.Connect();
+            var connection = source.Connect(); // now, source will publish it's sequence values. even if no subscribers.
 
 
             Console.WriteLine("TODO >>>>>> Press Any Key to Subscribe the first subsciber.");
@@ -136,17 +134,30 @@ namespace FirstRX.TamingTheSequence
         public static void Test()
         {
             var period = TimeSpan.FromSeconds(1);
-            var observable = Observable.Interval(period)
+            var source = Observable.Interval(period)
             .Do(l => Console.WriteLine("Publishing {0}", l)) //side effect to show it is running
             .Publish()
             .RefCount();
-            //observable.Connect(); Use RefCount instead now 
-            Console.WriteLine("Press any key to subscribe");
+            //source.Connect(); Use RefCount instead now 
+            Console.WriteLine("TODO >>>>>> Press Any Key to Subscribe the first subsciber.");
             Console.ReadKey();
-            var subscription = observable.Subscribe(i => Console.WriteLine("subscription : {0}", i));
-            Console.WriteLine("Press any key to unsubscribe.");
+            var subscriber1 = source.Subscribe(v => Console.WriteLine($"First Subscriber: {v}"), () => Console.WriteLine("1st Completed"));
+
+
+
+            Console.WriteLine("TODO >>>>>> Press Any Key to Subscribe the Second subsciber.");
             Console.ReadKey();
-            subscription.Dispose();
+            var subscriber2 = source.Subscribe(v => Console.WriteLine($"Second Subscriber: {v}"), () => Console.WriteLine("2nd Completed"));
+
+
+            Console.WriteLine("TODO >>>>>> Press Any Key to Dispose the first subsciber.");
+            Console.ReadKey();
+            subscriber1.Dispose();
+
+
+            Console.WriteLine("TODO >>>>>> Press Any Key to Dispose the Second subsciber.");
+            Console.ReadKey();
+            subscriber2.Dispose();
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
