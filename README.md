@@ -1,13 +1,12 @@
 # reactive-rx
 discovering the world of reactive programming using Rx .net
 This is my practicing to based on the following resources:
-   * <a href="http://introtorx.com/Content/v1.0.10621.0/00_Foreword.html" target="_blank"> Introduction to Rx </a>
-   * <a href="https://app.pluralsight.com/library/courses/dotnet-code-rx-taming-asynchronous/table-of-contents" target="_blank">
-Taming Asynchronous .NET Code with Rx</a> 
+ * <a href="http://introtorx.com/Content/v1.0.10621.0/00_Foreword.html" target="_blank"> Introduction to Rx </a>
+ * <a href="https://app.pluralsight.com/library/courses/dotnet-code-rx-taming-asynchronous/table-of-contents" target="_blank">Taming Asynchronous .NET Code with Rx</a> 
 
-## Sequence Basics: 
+# Sequence Basics: 
 ------------------------------------------------------------
-##Aggregation
+## Aggregation
 - Count, Min, Max, Sum and Average
 - Functional folds 
 - Blocking Operatos: First, Last,Single, FirstOrDefault, LastOrDefault, SingleOrDefault
@@ -15,7 +14,7 @@ Taming Asynchronous .NET Code with Rx</a>
 - Scan Operator
 - MaxBy and MinBy Operators
 - GroupBy Operator
-##CreatingSequence
+## CreatingSequence
 - Simple factory methods
 - Observable.Create
 - Empty, Return, Never and Throw With Observable.Create
@@ -32,7 +31,7 @@ Taming Asynchronous .NET Code with Rx</a>
 - From Task usnig ToObservable() Extension method
 - From IEnumerable<T> using ToObservable() Extension Method
 - From AMP Pattern
-##InspectionOperators
+## InspectionOperators
 - Any Operator
 - All Operator
 - Contains Operator
@@ -40,7 +39,7 @@ Taming Asynchronous .NET Code with Rx</a>
 - ElementAt Operator
 - SequenceEquals
 
-##KeyTypes
+## KeyTypes
 - Implementing IObservable and IObserver
 - Subject<T>
 - ReplaySubject<T> with buffer size
@@ -51,13 +50,13 @@ Taming Asynchronous .NET Code with Rx</a>
 - ISubject Interface
 - Subject factory
 
-##LifetimeManagement
+## LifetimeManagement
 - Lifetime Management
 - IDisposable Type And Dispose Method
 - OnError and OnCompleted
 - IDisposable Important Note
 - Resource management vs. memory management
-##Reducingsequence
+## Reducingsequence
 - Reducing a sequence
 - Where Operator
 - Distinct Operator
@@ -65,7 +64,7 @@ Taming Asynchronous .NET Code with Rx</a>
 - IgnoreElements
 - Skip, Take, SkipWhile, TakeWhile, TakeLast, and SkipLast
 - SkipUntil and TakeUntil
-##Transformation
+## Transformation
 - Introduction
 - Select Operator
 - Cast and OfType
@@ -75,12 +74,12 @@ Taming Asynchronous .NET Code with Rx</a>
 - SelectMany
 - ABC's of functional programming
 
-#Taming The Sequence
+# Taming The Sequence
 -----------------------------------------------
-##AdvancedErrorHandling
+## AdvancedErrorHandling
 - Catch, Finally, Using, OnErrorResumeNext, and Retry
 - Catch Operator
-##CombiningSequences
+## CombiningSequences
 - Sequential Concatenation
 - Concat Operator
 - Repeat Operator
@@ -91,27 +90,27 @@ Taming Asynchronous .NET Code with Rx</a>
 - Switch Operator : Who Come, I will work with you only ^-^
 - Pairing sequences : CombineLatest
 - Pairing sequences : Zip
-##HotAndColdObservables
+## HotAndColdObservables
 - Hot ane Cold Observables
 - Publish and Connect
 - RefCount
 - Race Condition When Subscribe Before Connect
 - PublishLatest
 - Replay
-##LeavingTheMonad
+## LeavingTheMonad
 - ForEach : Blocking Method
 - ForEachAsync Non Blocking Operator
 - ToEnumerable
 - ToTask Operator: Removed From newer RX Version
 - ToEvent<T>
 - ToEventPattern
-##SideEffects
+## SideEffects
 - Issues With Side Effects
 - Mutable elements cannot be protected
 - Do Operator
 - Encapsulating with AsObservable
 - Finally
-##TimeShifted
+## TimeShifted
 - Time-shifted sequences
 - Buffer Operator
 - Overlapping Buffers
