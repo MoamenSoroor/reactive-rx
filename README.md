@@ -14,7 +14,7 @@ This is my practicing to based on the following resources:
 - Scan Operator
 - MaxBy and MinBy Operators
 - GroupBy Operator
-## CreatingSequence
+## Creating Sequence
 - Simple factory methods
 - Observable.Create
 - Empty, Return, Never and Throw With Observable.Create
@@ -31,7 +31,7 @@ This is my practicing to based on the following resources:
 - From Task usnig ToObservable() Extension method
 - From IEnumerable<T> using ToObservable() Extension Method
 - From AMP Pattern
-## InspectionOperators
+## Inspection Operators
 - Any Operator
 - All Operator
 - Contains Operator
@@ -39,7 +39,7 @@ This is my practicing to based on the following resources:
 - ElementAt Operator
 - SequenceEquals
 
-## KeyTypes
+## Key Types
 - Implementing IObservable and IObserver
 - Subject<T>
 - ReplaySubject<T> with buffer size
@@ -50,7 +50,7 @@ This is my practicing to based on the following resources:
 - ISubject Interface
 - Subject factory
 
-## LifetimeManagement
+## Lifetime Management
 - Lifetime Management
 - IDisposable Type And Dispose Method
 - OnError and OnCompleted
@@ -76,10 +76,10 @@ This is my practicing to based on the following resources:
 
 # Taming The Sequence
 -----------------------------------------------
-## AdvancedErrorHandling
+## Advanced Error Handling
 - Catch, Finally, Using, OnErrorResumeNext, and Retry
 - Catch Operator
-## CombiningSequences
+## Combining Sequences
 - Sequential Concatenation
 - Concat Operator
 - Repeat Operator
@@ -90,27 +90,27 @@ This is my practicing to based on the following resources:
 - Switch Operator : Who Come, I will work with you only ^-^
 - Pairing sequences : CombineLatest
 - Pairing sequences : Zip
-## HotAndColdObservables
+## Hot And Cold Observables
 - Hot ane Cold Observables
 - Publish and Connect
 - RefCount
 - Race Condition When Subscribe Before Connect
 - PublishLatest
 - Replay
-## LeavingTheMonad
+## Leaving The Monad
 - ForEach : Blocking Method
 - ForEachAsync Non Blocking Operator
 - ToEnumerable
 - ToTask Operator: Removed From newer RX Version
 - ToEvent<T>
 - ToEventPattern
-## SideEffects
+## Side Effects
 - Issues With Side Effects
 - Mutable elements cannot be protected
 - Do Operator
 - Encapsulating with AsObservable
 - Finally
-## TimeShifted
+## Time Shifted
 - Time-shifted sequences
 - Buffer Operator
 - Overlapping Buffers
